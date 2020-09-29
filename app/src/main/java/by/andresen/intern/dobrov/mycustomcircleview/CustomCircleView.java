@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+
 import androidx.annotation.Nullable;
 
 public class CustomCircleView extends View {
@@ -15,13 +16,12 @@ public class CustomCircleView extends View {
     private static final String TAG = "CustomCircleView";
 
     private static final int DEFAULT_CIRCLE_SIZE = 100;
-    private float circleDiameter;
     private Paint paint;
-    float radius;
-    float w;
-    float h;
-    float cx;
-    float cy;
+    private float radius;
+    private float w;
+    private float h;
+    private float cx;
+    private float cy;
 
     public CustomCircleView(Context context) {
         super(context);
@@ -51,8 +51,8 @@ public class CustomCircleView extends View {
                 .obtainStyledAttributes(attributeSet, R.styleable.CustomCircleView);
 
         try {
-            circleDiameter = typedArray.getDimensionPixelSize(R.styleable.CustomCircleView_circleRadius, DEFAULT_CIRCLE_SIZE);
-            Log.d(TAG, "init: GET DIAMETER " + circleDiameter + " FOR CIRCLE");
+            radius = typedArray.getDimension(R.styleable.CustomCircleView_circleRadius, DEFAULT_CIRCLE_SIZE);
+            Log.d(TAG, "init: GET RADIUS " + radius + " FOR CIRCLE");
 
         } finally {
             typedArray.recycle();
@@ -69,15 +69,8 @@ public class CustomCircleView extends View {
         cx = w / 2;
         cy = h / 2;
 
-        if (w > h) {
-            radius = h / 4;
-        } else {
-            radius = w / 4;
-        }
-
-        Log.d(TAG, "onDraw: Radius " + h);
-
         paint.setColor(getResources().getColor(R.color.circle_background_color));
+        Log.d(TAG, "onDraw: RADIUS " + radius);
         canvas.drawCircle(cx, cy, radius, paint);
 
         Log.d(TAG, "onDraw: START TO DRAW THE CIRCLE");
